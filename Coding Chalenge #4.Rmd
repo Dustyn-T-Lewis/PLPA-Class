@@ -1,0 +1,72 @@
+---
+title: "Coding Challenge 4"
+author: "Dustyn Lewis"
+date: "2025-03-03"
+output:
+  md_document:
+    variant: gfm
+  pdf_document: default
+  html_document: null
+  toc: true
+  toc_float: true
+  word_document: default
+---
+[Manuscript DOI](https://doi.org/10.1094/PDIS-06-21-1253-RE)
+
+### Question 1: Explain the Following
+
+####  a) YAML header: 
+  -Used to format document output format at the top of R Markdown and contains arguments that let you define things like your title, name/author, table of contents, etc.
+
+####  b) Literate programming: 
+  -a programming paradigm where a code is written in both natural language and executable code.
+
+
+
+```{r setup, include=FALSE}
+data <- read.csv("MycotoxinData.csv", na.strings = "na")
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(ggplot2)
+library(markdown)
+library(ggplot2)
+library(ggpubr)
+```
+
+### Question 2: Reading in and Plotting Data
+
+```{r Q2 setup, include=TRUE, warning=FALSE, echo=FALSE}
+DON <- ggplot(data, aes(x = Treatment, y = DON, fill = Cultivar)) + 
+  geom_boxplot(position = position_dodge(), outlier.shape = NA) + 
+  geom_point(position = position_jitterdodge(), alpha = .6, aes(color = Cultivar), 
+             shape = 21, color = "black", stroke = 0.1) + 
+  ylab("DON (ppm)") +
+  scale_fill_manual (values = c("#56B4E9", "#009E73")) +
+  scale_color_manual (values = c("#56B4E9", "#009E73")) +
+  facet_wrap(~Cultivar) +
+  theme_classic() 
+DON
+
+ADON <- ggplot(data, aes(x = Treatment, y = X15ADON, fill = Cultivar)) + 
+  geom_boxplot(position = position_dodge(), outlier.shape = NA) + 
+  geom_point(position = position_jitterdodge(), alpha = .6, aes(color = Cultivar), 
+             shape = 21, color = "black", stroke = 0.1) + 
+  ylab("15ADON") +
+  scale_fill_manual (values = c("#56B4E9", "#009E73")) +
+  scale_color_manual (values = c("#56B4E9", "#009E73")) +
+  facet_wrap(~Cultivar) +
+  theme_classic() 
+ADON
+
+Seedmass <- ggplot(data, aes(x = Treatment, y = MassperSeed_mg, fill = Cultivar)) + 
+  geom_boxplot(position = position_dodge(), outlier.shape = NA) + 
+  geom_point(position = position_jitterdodge(), alpha = .6, aes(color = Cultivar), 
+             shape = 21, color = "black", stroke = 0.1) + 
+  ylab("Seed Mass (mg)") +
+  scale_fill_manual (values = c("#56B4E9", "#009E73")) +
+  scale_color_manual (values = c("#56B4E9", "#009E73")) +
+  facet_wrap(~Cultivar) +
+  theme_classic() 
+Seedmass
+```
+
