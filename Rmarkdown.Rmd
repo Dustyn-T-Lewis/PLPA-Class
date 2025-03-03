@@ -1,0 +1,114 @@
+---
+title: "R_Markdown_Class_Note"
+author: "Dustyn Lewis"
+date: "2025-02-25"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+  md_document:
+    variant: gfm
+  pdf_document:
+  word_document:
+---
+## R Markdown for Iterative Programming
+
+R Markdown is a  tool for iterating programs, integrating code, output, etc. in one document. 
+
+### R Markdown and Code Chunck
+
+To include R code in  Rmarkdwon document, insert a code chunk.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(ggplot2)
+library(markdown)
+```
+
+
+This is an example of R code:
+"Include" option shows the code chunk
+"Echo" option shows the output
+```{r r_code_example, include=TRUE, echo=FALSE}
+summary(mtcars)
+```
+
+```{r Include figures}
+data("mtcars")
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_smooth(method = lm, se = FALSE) +
+  geom_point(aes(color = wt)) +
+  xlab("Weight") + 
+  ylab("Miles per gallon") +
+  scale_colour_gradient(low = "forestgreen", high = "black")
+```
+You can also use R Markdown Formatting to organize documents:
+
+### Headers:
+
+# First level header
+## secod level header
+### Third level header
+#### Forth level header
+
+### Italics (by putting the sentence between `* *`):
+
+`*This text is in italics*`
+
+### Bold (by putting the sentence between `** **` or `__ __`):
+
+`**This text is in bold**`
+`__This text is also in bold__`
+
+### List of items (by putting the - or numbers on the left side of the items name):
+
+- Item one
+- Item two
+ - Subitem two
+ 
+1. the first item
+2. the second item
+3. the third item
+    - one unordered item
+    - one unordered item
+
+### Links (by putting the [ ] on both sides of the sentence):
+[Link to my github](https://github.com/szk0263/PLPA6820_SK)
+
+### Images (by putting the ![ ] on both sides of the image name following by the image path in paranthesis):
+
+![Shrek ggplot](shrek.jpg)
+
+If you forgot the exclamation mark (!), it will become just a link
+
+### Formatted tables:
+```{r}
+kable(head(mtcars, n = 5), digits = 3, format = "markdown")
+```
+
+## Organizing a repository and editing a readme using Markdown
+### Directory Tree
+We can also create a file tree using the fs package in R. This package allows us to print the directory structure, which is useful for providing explicit instructions in the README about each file's purpose. We can copy the file tree text and paste it into a markdown block to make it viewable on GitHub. Labeling the file tree and providing descriptions for each file helps users understand the project structure.
+
+First install the package "fs"
+Then run this code:
+```{r}
+fs::dir_tree()
+```
+### Zenodo Link
+
+Zenodo allows us to create a DOI (Digital Object Identifier) for our repository, making it citable. By linking your Zenodo account to GitHub, you can generate a Zenodo badge that provides a direct link to your release. This badge can be added to your README for easy access.
+
+To create a Zenodo badge for your release:
+
+1. **Ensure your GitHub account is linked to Zenodo.**  
+2. **Create a release on GitHub**, which Zenodo will recognize and assign a DOI.  
+3. **Include the badge in your README** to provide a direct citation link.
+
+
+### Publishing Your Release
+- Click **Publish release** to make it public.
+- Click **Save draft** to work on it later.
+
+You can view both published and draft releases in your repository's **Releases** section.
